@@ -1,21 +1,45 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import React from 'react';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import AppNavigator from './src/navigation/AppNavigator';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './src/reducer';
 
-class HomeScreen extends React.Component {
+const store = createStore(reducer);
+
+
+
+export default class App extends React.Component {
+  state = {
+    isLoadingComplete: false,
+  };
+
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Home Screen</Text>
-      </View>
+      <Provider store={ store }>
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <AppNavigator />
+        </View>
+      </Provider>
     );
   }
+
+
+  _handleLoadingError = error => {
+    // In this case, you might want to report the error to your error
+    // reporting service, for example Sentry
+    console.warn(error);
+  };
+
+  _handleFinishLoading = () => {
+    this.setState({ isLoadingComplete: true });
+  };
 }
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
 });
-
-export default createAppContainer(AppNavigator);
