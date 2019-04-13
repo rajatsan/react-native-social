@@ -1,18 +1,21 @@
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import React from 'react';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import AlbumScreen from '../screens/AlbumScreen';
+import LibraryScreen from '../screens/LibraryScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
+import PurchasedScreen from '../screens/PurchasedScreen';
+import { pinkLight, violetLight, blueLight, greenLight, white } from '../colors';
 
 
 const BottomNavigator = createMaterialBottomTabNavigator({
-  HomeScreen: {screen: HomeScreen, },
-  LinksScreen: {screen: LinksScreen},
-  SettingsScreen: {screen: SettingsScreen},
+  Album: { screen: AlbumScreen, },
+  Library: {screen: LibraryScreen },
+  Favorites: {screen: FavoritesScreen },
+  Purchased: {screen: PurchasedScreen}
 }, {
-  initialRouteName: 'HomeScreen',
+  initialRouteName: 'Album',
   shifting: true,
-  activeColor: 'white'
+  activeColor: white
 });
 
 export default class App extends React.Component {
@@ -20,7 +23,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      inactiveColor: '#b39ddb'
+      inactiveColor: violetLight
     }
   }
 
@@ -28,13 +31,16 @@ export default class App extends React.Component {
     let color;
     switch(key) {
       case 'directory':
-        color = '#b39ddb';
+        color = violetLight;
         break;
-      case 'link':
-        color = '#ce93d8';
+      case 'library':
+        color = blueLight;
         break;
-      case 'settings':
-        color = '#80cbc4';
+      case 'favorites':
+        color = pinkLight;
+        break;
+      case 'purchased':
+        color = greenLight;
         break;
     }
     return () => {

@@ -1,25 +1,24 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import TabBarIcon from '../components/TabIcon';
+import { pink } from '../colors';
 
-export default class SettingsScreen extends React.Component {
+export default class FavoritesScreen extends React.Component {
   static navigationOptions = ({ screenProps }) => ({
-    title: 'app12.json',
-    tabBarLabel: 'Settings',
-    tabBarColor: '#006D6A',
+    tabBarColor: pink,
     tabBarIcon: ({ focused }) => (
       <TabBarIcon
         focused={focused}
-        name='options'
-        color={screenProps.inactiveColor}
+        name='heart'
+        inActiveColor={screenProps.inactiveColor}
       />
     ),
-    tabBarOnPress: ({defaultHandler}) => screenProps.updateInactiveColor('settings', defaultHandler)()
+    tabBarOnPress: ({defaultHandler}) => screenProps.updateInactiveColor('favorites', defaultHandler)()
   });
 
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
      * content, we just wanted to give you a quick view of your config */
-    return <View><Text>Setitngscre</Text></View>
+    return <View><Text>Favorites</Text></View>
   }
 }
